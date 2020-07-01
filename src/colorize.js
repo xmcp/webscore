@@ -15,7 +15,7 @@ function cannot_judge(score) {
 }
 
 export function colorize_semester(score,judge_by_gpa) {
-    if(cannot_judge(score)) return 'hsl(240,50%,90%)';
+    if(cannot_judge(score)) return 'hsl(240,30%,88%)';
     return `hsl(${120*prec(score,judge_by_gpa)},${judge_by_gpa ? 97: 100}%,70%)`
 }
 
@@ -27,7 +27,7 @@ export function colorize_course(score,judge_by_gpa) {
 export function colorize_coursebar(score,judge_by_gpa,left=false) {
     let color_l,color_r,width;
     if(cannot_judge(score) || score<60) {
-        color_l=color_r='hsl(240,50%,90%)';
+        color_l=color_r='hsl(240,30%,88%)';
         width=is_fail(score)?0:1;
     } else {
         let p=prec(score,judge_by_gpa);

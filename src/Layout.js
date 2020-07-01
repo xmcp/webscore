@@ -66,7 +66,7 @@ class ClickHandler extends PureComponent {
 
 export function RowLayout(props) {
     return (
-        <div className="layout-row" style={props.style||{}}>
+        <div className={'layout-row '+(props.className||'')} style={props.style||{}}>
             <div className="layout-row-left">{props.left}</div>
             <div className="layout-row-middle">{props.middle}</div>
             <div className="layout-row-right">{props.right}</div>

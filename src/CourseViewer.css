@@ -71,3 +71,24 @@
     text-decoration-line: line-through;
     text-decoration-color: rgba(255,0,0,.5);
 }
+
+.rainbow-moving {
+    background: linear-gradient(-45deg,
+        hsl(120, 90%, 88%), hsl(0, 100%, 91%), hsl(240, 100%, 91%),
+        hsl(120, 90%, 88%), hsl(0, 100%, 91%), hsl(240, 100%, 91%),
+        hsl(120, 90%, 88%), hsl(0, 100%, 91%), hsl(240, 100%, 91%),
+        hsl(120, 90%, 88%), hsl(0, 100%, 91%), hsl(240, 100%, 91%),
+        hsl(120, 90%, 88%)
+    ) 0 0;
+    background-size: 1800px 200px;
+    animation: rainbow-moving 5s linear infinite;
+}
+
+@keyframes rainbow-moving {
+    0% {
+        background-position-x: 0;
+    }
+    100% {
+        background-position-x: -1000px;
+    }
+}

@@ -52,6 +52,8 @@ function CourseViewer(props) {
 
     if(!tampered && gpa!==null && !isNaN(props.course.isop_gpa)) gpa=parseFloat(props.course.isop_gpa);
 
+    let should_show_rainbow=(props.course.score>99.995 && !tampered);
+
     function do_course_survey() {
         if(window._course_survey_asked || window.confirm(
             `为《${props.course.name}》填写课程测评，让更多的人了解这门课程！\n\n`+
@@ -111,7 +113,8 @@ function CourseViewer(props) {
                         need_hide_text={gpa!==null || props.course.score<60}
                     />
                 }
-                style={make_score_gradient(props.course.score,props.judge_by_gpa)}
+                style={should_show_rainbow ? null : make_score_gradient(props.course.score,props.judge_by_gpa)}
+                className={should_show_rainbow ? 'rainbow-moving' : ''}
             />
         </div>
     );
