@@ -38,14 +38,14 @@ function PotentialSVG(props) {
             {/* text up */}
             <text
                 x="119.241667"  y="48.225" fill="#ffffff" fontFamily="Sans-serif" fontSize="32"
-                opacity="0.9" textAnchor="middle" xmlSpace="preserve"
+                opacity="0.95" textAnchor="middle" xmlSpace="preserve" letterSpacing="-1"
             >
                 GPA
             </text>
             {/* text down */}
             <text
-                x="119.241667" y="110.725" fill="#ffffff" fontFamily="Sans-serif"
-                opacity="0.9" textAnchor="middle" xmlSpace="preserve" fontWeight="bold" letterSpacing="-2" strokeWidth="1.5"
+                x="119.241667" y="109.725" fill="#ffffff" fontFamily="Sans-serif"
+                opacity="0.95" textAnchor="middle" xmlSpace="preserve" fontWeight="bold" letterSpacing="-3" strokeWidth="1.5"
                 id="potential-svg-text-down"
             >
                 {props.textDown}
@@ -54,9 +54,17 @@ function PotentialSVG(props) {
     );
 }
 
+function smartfix(x) {
+    if(Math.abs(x)>=1)
+        return x.toFixed(2); // -1.23
+    else
+        return x.toFixed(3).replace('0.','.'); // -.234
+}
+
 export function PotentialWidget(props) {
-    let type=(props.delta>=.005 ? 'up' : props.delta<=-.005 ? 'down' : 'keep');
-    let text=(type==='up' ? ('+'+props.delta.toFixed(2)) : type==='down' ? (props.delta.toFixed(2)) : '-KEEP-');
+
+    let type=(props.delta>=.0005 ? 'up' : props.delta<=-.0005 ? 'down' : 'keep');
+    let text=(type==='up' ? ('+'+smartfix(props.delta)) : type==='down' ? smartfix(props.delta) : '-KEEP-');
     return (
         <div title={'△GPA = '+props.delta.toFixed(4)} className="potential-span">
             <PotentialSVG type={type} textDown={text} />
