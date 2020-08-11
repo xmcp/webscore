@@ -27,7 +27,7 @@ function OverallViewer(props) {
         let tampered=score_tampered(course_list.map((id)=>props.courses[id]));
 
         return [sem_score,
-            <div className={'course-row'+(tampered ? ' row-tampered' : '')}>
+            <div key={name} className={'course-row'+(tampered ? ' row-tampered' : '')}>
                 <RowLayout
                     left={
                         <VerticalLayout up={fix(sem_credit,1)} down="学分" />
@@ -39,7 +39,7 @@ function OverallViewer(props) {
                             extra={
                                 <div>
                                     {course_list.map((id)=>(
-                                        <p>
+                                        <p key={id}>
                                             {props.courses[id].credit}学分 -&nbsp;
                                             {props.courses[id].name} -&nbsp;
                                             {fix(props.courses[id].score,1)}

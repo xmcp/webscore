@@ -95,7 +95,7 @@ function CourseViewer(props) {
                         extra={
                             <div>
                                 {props.course.extras.map(([name,value])=>(
-                                    <p>
+                                    <p key={name}>
                                         <b>{name}：</b>{value}
                                     </p>
                                 ))}

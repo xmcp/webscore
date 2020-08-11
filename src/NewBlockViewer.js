@@ -1,12 +1,13 @@
 import React, {Component, PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {course_gpa_from_normalized_score, score_tampered, is_fail} from './score_parser';
+import {course_gpa_from_normalized_score, score_tampered, is_fail, calc_avg_gpa} from './score_parser';
 import CourseViewer from './CourseViewer';
 import {RowLayout, VerticalLayout} from './Layout';
 import {colorize_new_block} from './colorize';
 import {read_all} from './actions';
 
 import './NewBlockViewer.css';
+import {PotentialWidget} from './Potential';
 
 class NewBlockViewer extends Component {
     constructor(props) {
@@ -51,18 +52,20 @@ class NewBlockViewer extends Component {
             return s2!==s1 ? s2-s1 : f1!==f2 ? f2-f1 : id2-id1;
         });
 
-        let is_all_normal_distr=props.course_list.every((id)=> {
-            let sc=props.courses[id].score;
-            return !isNaN(sc) && sc>83.9995 && sc<84.9995;
-        });
+        let overall_gpa=calc_avg_gpa(props.courses,Object.keys(props.courses));
+        let old_gpa=calc_avg_gpa(props.courses,Object.keys(props.courses).filter((k)=>props.course_list.indexOf(parseInt(k))===-1));
+        let delta=overall_gpa-old_gpa;
+        console.log('new block delta gpa',delta);
 
         return (
             <div className={'semester-block new-block'+(this.state.hidden ? ' new-block-hidden' : '')}>
                 <div>
                     <RowLayout
-                        left={null}
+                        left={
+                            <PotentialWidget delta={delta} />
+                        }
                         middle={
-                            <VerticalLayout up={`新增${is_all_normal_distr ? '正态' : '成绩'}`} down={`共 ${props.course_list.length} 门课程`} />
+                            <VerticalLayout up="新增成绩" down={`共 ${props.course_list.length} 门课程`} />
                         }
                         right={
                             <button onClick={this.read_all.bind(this)} disabled={this.state.hidden} className="read-all-button">已阅</button>
