@@ -61,15 +61,32 @@ export function toggle_switch(name) {
 }
 
 export function tamper_score(idx,score) {
-    score=score.trim();
-    if(score.length>4) return {type: null};
-    score=score.toUpperCase();
-    if(!check_score(score)) return {type: null};
-    return {
-        type: 'tamper_score',
-        idx: idx,
-        score: isNaN(score) ? score : parseFloat(score),
-    }
+    return (dispatch,getState)=>{
+        score=score.trim().toUpperCase();
+
+        if(score==='IF YOU CAN') { // unread
+            let course_id=getState().data.courses[idx].course_id;
+            let shown_scores=shown_score_helper.get();
+            shown_score_helper.set(shown_scores.filter((cid)=>cid!==course_id));
+            shown_score_helper.apply();
+
+            let next=do_load();
+            next(dispatch,getState);
+            return;
+        }
+
+        if(score.length>4)
+            return;
+
+        if(!check_score(score))
+            return;
+
+        dispatch({
+            type: 'tamper_score',
+            idx: idx,
+            score: isNaN(score) ? score : parseFloat(score),
+        });
+    };
 }
 
 export function untamper_score(idx) {

@@ -8,7 +8,6 @@ function PotentialSVG(props) {
             <defs>
                 <linearGradient id="border-gradient" x1="0" x2="0" y1="0" y2="1">
                     <stop offset="0" stopColor="#fafafa" />
-                    <stop offset="0.15" stopColor="#fafafa" />
                     <stop offset="1" id="potential-svg-border-gradient-stop" />
                 </linearGradient>
                 <filter id="as-drop-shadow" x="-100%" y="-100%" width="300%" height="300%">
@@ -45,7 +44,7 @@ function PotentialSVG(props) {
             {/* text down */}
             <text
                 x="119.241667" y="109.725" fill="#ffffff" fontFamily="Sans-serif"
-                opacity="0.95" textAnchor="middle" xmlSpace="preserve" fontWeight="bold" letterSpacing="-3" strokeWidth="1.5"
+                opacity="0.95" textAnchor="middle" xmlSpace="preserve" fontWeight="bold" letterSpacing="-2" strokeWidth="1.5"
                 id="potential-svg-text-down"
             >
                 {props.textDown}
